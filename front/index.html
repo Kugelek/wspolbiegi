@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald" />
+    <meta name="author" content="SitePoint" />
+
+    <link rel="stylesheet" href="game.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.socket.io/socket.io-1.4.5.js"
+    ></script>
+  </head>
+
+  <body>
+    <div class="starter">
+      <h4 class="info">Dołącz do kolejki aby zagrac w gre. Wpisz swój nick</h4>
+      <input
+        type="text"
+        class="starter-input"
+        placeholder="Wpisz nick"
+        required
+      />
+      <input
+        class="submitinput"
+        type="submit"
+        onClick="joinQueue()"
+        value="Join queue"
+      />
+    </div>
+    <div class="game">
+      <div class="top">
+        Punkty przeciwnika
+        <p class="enemy-points"></p>
+      </div>
+      <div class="tura">Twoja tura</div>
+      <div class="board">
+        <div class="row">
+          <div id="0" class="square"></div>
+          <div id="1" class="square"></div>
+          <div id="2" class="square"></div>
+          <div id="3" class="square"></div>
+          <div id="4" class="square"></div>
+          <div id="5" class="square"></div>
+        </div>
+        <div class="row">
+          <div id="6" class="square"></div>
+          <div id="7" class="square"></div>
+          <div id="8" class="square"></div>
+          <div id="9" class="square"></div>
+          <div id="10" class="square"></div>
+          <div id="11" class="square"></div>
+        </div>
+        <div class="row">
+          <div id="12" class="square"></div>
+          <div id="13" class="square"></div>
+          <div id="14" class="square"></div>
+          <div id="15" class="square"></div>
+          <div id="16" class="square"></div>
+          <div id="17" class="square"></div>
+        </div>
+        <div class="row">
+          <div id="18" class="square"></div>
+          <div id="19" class="square"></div>
+          <div id="20" class="square"></div>
+          <div id="21" class="square"></div>
+          <div id="22" class="square"></div>
+          <div id="23" class="square"></div>
+        </div>
+      </div>
+      <div class="bottom">Punkty moje</div>
+      <p class="my-points"></p>
+    </div>
+    <script src="client.js"></script>
+  </body>
+</html>

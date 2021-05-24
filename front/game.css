@@ -1,0 +1,69 @@
+.square {
+  width: 10rem;
+  height: 10rem;
+  background-color: black;
+  margin: 2rem;
+  cursor: pointer;
+  display: table-cell;
+
+  transition: 0.5s background-color ease-in-out;
+}
+.row {
+  display: table-row;
+  width: 80vw;
+  margin: 2rem;
+}
+.square-hidden {
+  pointer-events: none;
+  transition: 2s opacity ease-in-out;
+  opacity: 0;
+}
+
+.board {
+  width: 80vw;
+  margin: auto;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2rem;
+}
+.game-hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.top {
+  margin: auto;
+  margin-top: 5vh;
+}
+
+body {
+  background-color: gray;
+}
+
+.starter {
+  position: absolute;
+  color: white;
+  font-weight: normal;
+  font-size: 2rem;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.starter-hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+.starter-input {
+  width: 25rem;
+}
+.info {
+}
