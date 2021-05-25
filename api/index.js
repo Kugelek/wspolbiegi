@@ -88,11 +88,13 @@ const matchPlayersToGames = () => {
       p0: players[0],
       p1: players[1],
       showedSquares: [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23,
+        0, 1, 2, 3, 4, 5, 6, 7,
+        8, 9, 10, 11, 12, 13, 14, 15,
+        16, 17, 18, 19, 20, 21, 22, 23,
       ],
       playerNames: [players[0].nickname, players[1].nickname],
       turn: players[0].nickname,
+      trueColors: randomUniqueNumbers,
     });
 
     players.splice(0, 2);
@@ -103,3 +105,21 @@ const matchPlayersToGames = () => {
   }
 };
 setInterval(matchPlayersToGames, 3000);
+
+/////////////////////////////////////////////////////////////////////////
+
+const getRandomWithoutRepetition = () => {
+  const fields = Array.from(Array(24).keys());
+  ranNums = [];
+  i = fields.length;
+  let num = 0;
+  while (i--) {
+    num = Math.floor(Math.random() * (i + 1));
+    ranNums.push(fields[num]);
+    fields.splice(num, 1);
+  }
+
+  return ranNums;
+};
+
+const randomUniqueNumbers = getRandomWithoutRepetition();
