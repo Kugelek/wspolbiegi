@@ -1,10 +1,14 @@
 document.querySelector(".game").classList.toggle("game-hidden");
 let squares = document.querySelectorAll(".square");
-// console.log(squares);
 
 let socket;
 let game;
 let isMyTurn = false;
+
+const resetSquaresColor = () => {
+  squares.forEach((square) => (square.style.backgroundColor = "black"));
+};
+
 function setup() {
   socket = io("http://localhost:3000", {
     withCredentials: false,
@@ -28,10 +32,7 @@ function setup() {
         id: el.id,
         hiddenColor: doubledColors[game[0].trueColors[el.id]],
       });
-      // console.log("nick", myNickname);
-      // console.log("turka", game[0].turn);
       if (game[0].turn === myNickname) {
-        // console.log("kolorki", mappedColors);
         el.addEventListener(
           "click",
           showColor.bind(null, mappedColors[el.id].hiddenColor)
@@ -48,9 +49,6 @@ function setup() {
   });
 
   socket.on("gameEnd", (data) => {
-    // console.log(data.winner);
-    // console.log(myNickname);
-
     squares.forEach((sq) => {
       if (!document.getElementById(sq.id).classList.contains("square-hidden"))
         document.getElementById(sq.id).classList.toggle("square-hidden");
@@ -70,12 +68,16 @@ function setup() {
     if (game[0].p0.nickname === myNickname) {
       document.querySelector(".my-points").innerHTML = game[0].p0.points;
       document.querySelector(".enemy-points").innerHTML = game[0].p1.points;
-      console.log(`Moje punkty:  ${game[0].p0.points}`);
     } else {
       document.querySelector(".my-points").innerHTML = game[0].p1.points;
       document.querySelector(".enemy-points").innerHTML = game[0].p0.points;
-      console.log(`Moje punkty:  ${game[0].p1.points}`);
     }
+    
+    squares.forEach((square) => {
+      document.getElementById(square.id).style.backgroundColor = "black";
+    });
+    document.getElementById(game[0].lastMoves[0]).style.backgroundColor = mappedColors[game[0].lastMoves[0]].hiddenColor;
+    document.getElementById(game[0].lastMoves[1]).style.backgroundColor = mappedColors[game[0].lastMoves[1]].hiddenColor;
 
     if (game[0].turn !== myNickname) {
       // console.log("TURAUPDATE", game[0].turn);
@@ -87,7 +89,6 @@ function setup() {
         oldEl.parentNode.replaceChild(oldEl.cloneNode(true), oldEl);
       });
     } else {
-      resetSquaresColor();
       isMyTurn = true;
       squares = document.querySelectorAll(".square");
       squares.forEach((el) =>
@@ -96,7 +97,7 @@ function setup() {
           showColor.bind(this, mappedColors[el.id].hiddenColor)
         )
       );
-      console.log("UPD", squares);
+      // console.log("UPD", squares);
     }
 
     // console.log("UPDEJCIK");
@@ -109,8 +110,6 @@ function setup() {
           document.getElementById(sq.id).classList.toggle("square-hidden");
     });
   });
-
-  // io.sockets.emit("gameStateUpdate", games);
 }
 
 window.onload = setup;
@@ -147,20 +146,15 @@ const colors = [
 ];
 const doubledColors = colors.concat(colors);
 
-const resetSquaresColor = () => {
-  squares.forEach((square) => (square.style.backgroundColor = "black"));
-};
-
 const showColor = (color, event) => {
   if (event.target != lastRevealedSquare) {
+    resetSquaresColor();
     revealedAmount++;
     if (revealedAmount == 1) {
       lastRevealedSquare = event.target;
       lastRevealedColor = color;
     } else if (revealedAmount == 2) {
       let isCorrect = false;
-      console.log(color);
-      console.log(lastRevealedColor);
       if (color == lastRevealedColor) {
         isCorrect = true;
         event.target.removeEventListener("click", showColor);
@@ -168,10 +162,8 @@ const showColor = (color, event) => {
         points++;
         //event socketowy
         document.querySelector(".my-points").innerHTML = points;
-        // event.target.classList.toggle("square-hidden");
-        // lastRevealedSquare.classList.toggle("square-hidden");
       }
-      console.log("PRZEKAZANIE RUCHU Z WYNIKIEM", isCorrect);
+      // console.log("PRZEKAZANIE RUCHU Z WYNIKIEM", isCorrect);
       socket.emit("nextMove", {
         myNickname,
         firstFieldId: event.target.id * 1,
@@ -181,7 +173,6 @@ const showColor = (color, event) => {
       lastRevealedSquare = -1;
       lastRevealedColor = "";
       revealedAmount = 0;
-      // resetSquaresColor();
     }
     event.target.style.backgroundColor = color;
   }
@@ -189,16 +180,10 @@ const showColor = (color, event) => {
 
 const mappedColors = [];
 
-// socket = console.log(mappedColors);
-// object.addEventListener("click", myScript);
-
 const whoseTurn = () => {
   if (game[0].turn == myNickname) {
     document.querySelector(".tura").textContent = "Twoja tura";
   } else {
     document.querySelector(".tura").textContent = "Tura przeciwnika";
   }
-  // console.log(document.querySelector(".tura").textContent);
-  // console.log(game[0].turn);
-  // console.log(myNickname);
 }

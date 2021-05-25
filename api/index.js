@@ -49,6 +49,8 @@ io.on("connection", (socket) => {
       g.playerNames.includes(data.myNickname)
     )[0];
 
+    wantedGame.lastMoves = [data.firstFieldId, data.secFieldId];
+
     if (wantedGame.turn === wantedGame.playerNames[0]) {
       wantedGame.turn = wantedGame.playerNames[1];
       if (data.isCorrect) wantedGame.p0.points += 1;
