@@ -168,8 +168,8 @@ const showColor = (color, event) => {
         points++;
         //event socketowy
         document.querySelector(".my-points").innerHTML = points;
-        event.target.classList.toggle("square-hidden");
-        lastRevealedSquare.classList.toggle("square-hidden");
+        // event.target.classList.toggle("square-hidden");
+        // lastRevealedSquare.classList.toggle("square-hidden");
       }
       console.log("PRZEKAZANIE RUCHU Z WYNIKIEM", isCorrect);
       socket.emit("nextMove", {
