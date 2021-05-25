@@ -48,6 +48,7 @@ io.on("connection", (socket) => {
     let wantedGame = games.filter((g) =>
       g.playerNames.includes(data.myNickname)
     )[0];
+
     if (wantedGame.turn === wantedGame.playerNames[0]) {
       wantedGame.turn = wantedGame.playerNames[1];
       if (data.isCorrect) wantedGame.p0.points += 1;
@@ -60,6 +61,18 @@ io.on("connection", (socket) => {
         (sq) => sq !== data.firstFieldId && sq !== data.secFieldId
       );
     }
+
+    if (wantedGame.showedSquares.length == 0) {
+      let winner = "remis";
+      if (wantedGame.p0.points > wantedGame.p1.points) {
+        winner = wantedGame.p0.nickname;
+      } else if (wantedGame.p0.points < wantedGame.p1.points) {
+        winner = wantedGame.p1.nickname;
+      }
+      io.sockets.emit("gameEnd", {winner: winner});
+      return;
+    }
+
     //nie podmienia arraya
     // console.log("EDITED");
     // console.log(

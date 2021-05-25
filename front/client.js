@@ -47,12 +47,35 @@ function setup() {
     // console.log(game);
   });
 
+  socket.on("gameEnd", (data) => {
+    // console.log(data.winner);
+    // console.log(myNickname);
+
+    squares.forEach((sq) => {
+      if (!document.getElementById(sq.id).classList.contains("square-hidden"))
+        document.getElementById(sq.id).classList.toggle("square-hidden");
+    });
+
+    document.querySelector(".game-state").innerHTML =
+      data.winner == "remis" ? "Remis" : (data.winner == myNickname ? "Wygrałeś" : "Przegrałeś");
+  });
+
   socket.on("gameStateUpdate", (data) => {
     game = data.filter((singleGame) =>
       singleGame.playerNames.includes(myNickname)
     );
 
     whoseTurn()
+
+    if (game[0].p0.nickname === myNickname) {
+      document.querySelector(".my-points").innerHTML = game[0].p0.points;
+      document.querySelector(".enemy-points").innerHTML = game[0].p1.points;
+      console.log(`Moje punkty:  ${game[0].p0.points}`);
+    } else {
+      document.querySelector(".my-points").innerHTML = game[0].p1.points;
+      document.querySelector(".enemy-points").innerHTML = game[0].p0.points;
+      console.log(`Moje punkty:  ${game[0].p1.points}`);
+    }
 
     if (game[0].turn !== myNickname) {
       // console.log("TURAUPDATE", game[0].turn);
