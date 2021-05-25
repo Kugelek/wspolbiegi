@@ -43,8 +43,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("nextMove", (data) => {
-    console.log("DATA");
-    console.log(data);
+    // console.log("DATA");
+    // console.log(data);
     let wantedGame = games.filter((g) =>
       g.playerNames.includes(data.myNickname)
     )[0];
@@ -61,10 +61,10 @@ io.on("connection", (socket) => {
       );
     }
     //nie podmienia arraya
-    console.log("EDITED");
-    console.log(
-      games.filter((g) => g.playerNames.includes(data.myNickname))[0]
-    );
+    // console.log("EDITED");
+    // console.log(
+    //   games.filter((g) => g.playerNames.includes(data.myNickname))[0]
+    // );
     io.sockets.emit("gameStateUpdate", games);
   });
 
