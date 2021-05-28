@@ -5,6 +5,8 @@ let socket;
 let game;
 let isMyTurn = false;
 
+const reload = () => window.location.reload();
+
 const resetSquaresColor = () => {
   squares.forEach((square) => (square.style.backgroundColor = "black"));
 };
@@ -25,7 +27,7 @@ function setup() {
     document.querySelector(".starter").classList.toggle("starter-hidden");
     document.querySelector(".submitinput").classList.toggle("starter-hidden");
 
-    whoseTurn()
+    whoseTurn();
 
     squares.forEach((el) => {
       mappedColors.push({
@@ -55,7 +57,13 @@ function setup() {
     });
 
     document.querySelector(".game-state").innerHTML =
-      data.winner == "remis" ? "Remis" : (data.winner == myNickname ? "Wygrałeś" : "Przegrałeś");
+      data.winner == "remis"
+        ? "Remis"
+        : data.winner == myNickname
+        ? "Wygrałeś"
+        : "Przegrałeś";
+
+    document.querySelector(".reload").classList.toggle("hidden");
   });
 
   socket.on("gameStateUpdate", (data) => {
@@ -63,7 +71,7 @@ function setup() {
       singleGame.playerNames.includes(myNickname)
     );
 
-    whoseTurn()
+    whoseTurn();
 
     if (game[0].p0.nickname === myNickname) {
       document.querySelector(".my-points").innerHTML = game[0].p0.points;
@@ -72,12 +80,14 @@ function setup() {
       document.querySelector(".my-points").innerHTML = game[0].p1.points;
       document.querySelector(".enemy-points").innerHTML = game[0].p0.points;
     }
-    
+
     squares.forEach((square) => {
       document.getElementById(square.id).style.backgroundColor = "black";
     });
-    document.getElementById(game[0].lastMoves[0]).style.backgroundColor = mappedColors[game[0].lastMoves[0]].hiddenColor;
-    document.getElementById(game[0].lastMoves[1]).style.backgroundColor = mappedColors[game[0].lastMoves[1]].hiddenColor;
+    document.getElementById(game[0].lastMoves[0]).style.backgroundColor =
+      mappedColors[game[0].lastMoves[0]].hiddenColor;
+    document.getElementById(game[0].lastMoves[1]).style.backgroundColor =
+      mappedColors[game[0].lastMoves[1]].hiddenColor;
 
     if (game[0].turn !== myNickname) {
       // console.log("TURAUPDATE", game[0].turn);
@@ -186,4 +196,4 @@ const whoseTurn = () => {
   } else {
     document.querySelector(".tura").textContent = "Tura przeciwnika";
   }
-}
+};
