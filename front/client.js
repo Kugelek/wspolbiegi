@@ -132,7 +132,14 @@ document.querySelector(".my-points").innerHTML = points;
 
 const joinQueue = (event) => {
   myNickname = document.querySelector(".starter-input").value;
+
+  if (!myNickname) {
+    alert("Wpisz poprawny nickname");
+    return;
+  }
+
   document.querySelector(".starter-input").classList.toggle("starter-hidden");
+  document.querySelector(".submitinput").classList.toggle("starter-hidden");
   document.querySelector(".info").innerHTML = "Czekanie na drugiego gracza";
 
   // console.log("testQq");

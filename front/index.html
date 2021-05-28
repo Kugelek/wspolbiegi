@@ -17,7 +17,7 @@
 
   <body>
     <div class="starter">
-      <h4 class="info">Dołącz do kolejki aby zagrac w gre. Wpisz swój nick</h4>
+      <h4 class="info">Dołącz do kolejki aby zagrac <br />Wpisz swój nick</h4>
       <input
         type="text"
         class="starter-input"
@@ -32,13 +32,21 @@
       />
     </div>
     <div class="game">
-      <h1 class="game-state">Game in progress...</h1>
-      <button class="reload hidden" onClick="reload()">Zacznij od nowa</button>
-      <div class="top">
-        Punkty przeciwnika
-        <p class="enemy-points">0</p>
-      </div>
-      <div class="tura">Twoja tura</div>
+      <section class="head">
+        <h1 class="game-state">Game in progress...</h1>
+        <button class="reload hidden" onClick="reload()">
+          Zacznij od nowa
+        </button>
+        <div class="top">
+          Punkty przeciwnika
+          <p class="enemy-points">0</p>
+        </div>
+        <div class="bottom">
+          Punkty moje
+          <p class="my-points">0</p>
+        </div>
+        <div class="tura">Twoja tura</div>
+      </section>
       <div class="board">
         <div class="row">
           <div id="0" class="square"></div>
@@ -73,8 +81,6 @@
           <div id="23" class="square"></div>
         </div>
       </div>
-      <div class="bottom">Punkty moje</div>
-      <p class="my-points">0</p>
     </div>
     <script src="client.js"></script>
   </body>
