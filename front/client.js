@@ -63,6 +63,12 @@ function setup() {
         ? "Wygrałeś"
         : "Przegrałeś";
 
+    if (data.wantedGame.turn == myNickname) {
+      let enemyPoints = document.querySelector(".enemy-points").innerHTML;
+      enemyPoints = enemyPoints*1 + 1;
+      document.querySelector(".enemy-points").innerHTML = enemyPoints;
+    }
+
     document.querySelector(".reload").classList.toggle("hidden");
   });
 

@@ -71,7 +71,7 @@ io.on("connection", (socket) => {
       } else if (wantedGame.p0.points < wantedGame.p1.points) {
         winner = wantedGame.p1.nickname;
       }
-      io.sockets.emit("gameEnd", {winner: winner});
+      io.sockets.emit("gameEnd", {winner: winner, wantedGame: wantedGame});
       return;
     }
 
